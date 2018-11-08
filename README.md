@@ -1,2 +1,2 @@
 # Sim2D
-Easy 2D phisic simulator
+Easy 2D physic simulator
