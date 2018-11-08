@@ -54,5 +54,6 @@ public abstract class RigidBody {
 	public boolean infinityMass(){
 		return im==0;
 	}
+	public void clearForce(){f.set(0,0);}
 	public abstract void draw(Graphics g);
 }
