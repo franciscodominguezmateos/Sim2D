@@ -8,7 +8,6 @@ public class Contact {
 	public double penetration;
 	public Vector2D normal;
 	public List<Vector2D> contacts;
-	public int contactCount;
 	public double e;
 	public double df;
 	public double sf;
@@ -24,7 +23,11 @@ public class Contact {
 	public void solve(){
 		int ia = A.id;
 		int ib = B.id;
-		Collisions.dispatch[ia][ib].handleCollision( this, A, B );
+		CollisionCallback ch=Collisions.dispatch[ia][ib];
+		if(ch==null){
+			System.out.print("idx="+ia+","+ib);
+		}
+		ch.handleCollision( this, A, B );
 	}
 	public void initialize(){
 		e=Math.min(A.restitution, B.restitution);
@@ -62,7 +65,7 @@ public class Contact {
 			infiniteMassCorrection();
 			return;
 		}
-		for(int i=0;i>contacts.size();i++){
+		for(int i=0;i<contacts.size();i++){
 		    //Calculate radii from COM to contact
 			Vector2D ra=contacts.get(i).sub(A.p);
 			Vector2D rb=contacts.get(i).sub(B.p);
@@ -73,26 +76,26 @@ public class Contact {
 		    //Do no resolve if velocities are separating
 		    if(contactVel>0)
 		    	return;
-		///???
-		double invMassSum=A.im+B.im;//not account for invInertia
-		//Calculate impulse scalar
-		double j=-(1.0+e)*contactVel;
-		j/=invMassSum;
-		j/=contacts.size();
-		//Apply impulse
-		Vector2D impulse=normal.mul(j);
-		A.applyImpulse(impulse.neg(),ra);
-		A.applyImpulse(impulse      ,rb);
-		//Friction impulse
-		//TODO
-		//j tangent magnitude
-		//TODO
-		//Do not apply tiny friction impulses
-		//TODO
-		//Coulumb's law
-		//TODO
-		//Apply friction impulse
-		//TODO
+			///???
+			double invMassSum=A.im+B.im;//not account for invInertia
+			//Calculate impulse scalar
+			double j=-(1.0+e)*contactVel;
+			j/=invMassSum;
+			j/=contacts.size();
+			//Apply impulse
+			Vector2D impulse=normal.mul(j);
+			A.applyImpulse(impulse.neg(),ra);
+			B.applyImpulse(impulse      ,rb);
+			//Friction impulse
+			//TODO
+			//j tangent magnitude
+			//TODO
+			//Do not apply tiny friction impulses
+			//TODO
+			//Coulumb's law
+			//TODO
+			//Apply friction impulse
+			//TODO
 		}
 	}
 	public void positionalCorrection(){

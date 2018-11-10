@@ -8,26 +8,24 @@ public class CollisionCircleCircle implements CollisionCallback
 	{
 		RigidCircle A = (RigidCircle)a;
 		RigidCircle B = (RigidCircle)b;
+		
+		c.contacts.clear();
 
 		// Calculate translational vector, which is normal
 		// Vec2 normal = b->position - a->position;
-		Vector2D normal = b.p.sub( a.p );
+		c.normal = b.p.sub( a.p );
 
 		// real dist_sqr = normal.LenSqr( );
 		// real radius = A->radius + B->radius;
-		double dist_sqr = normal.length2();
+		double dist_sqr = c.normal.length2();
 		double radius = A.r + B.r;
 
 		// Not in contact
-		if (dist_sqr >= radius * radius)
-		{
-			c.contactCount = 0;
+		if (dist_sqr >= radius * radius){
 			return;
 		}
 
 		double distance = Math.sqrt( dist_sqr );
-
-		c.contactCount = 1;
 
 		if (distance == 0.0f)
 		{
@@ -36,7 +34,7 @@ public class CollisionCircleCircle implements CollisionCallback
 			// m->contacts [0] = a->position;
 			c.penetration = A.r;
 			c.normal.set( 1.0f, 0.0f );
-			c.contacts[0].set( a.p );
+			c.contacts.add( a.p );
 		}
 		else
 		{
@@ -45,8 +43,9 @@ public class CollisionCircleCircle implements CollisionCallback
 			// we already performed sqrt
 			// m->contacts[0] = m->normal * A->radius + a->position;
 			c.penetration = radius - distance;
-			c.normal.set( normal ).divi( distance );
-			c.contacts[0].set( c.normal ).muli( A.r ).addi( a.p );
+			c.normal.normalize();
+			Vector2D contactPoint=A.p.add(c.normal.mul(A.r));
+			c.contacts.add(contactPoint);
 		}
 	}
 

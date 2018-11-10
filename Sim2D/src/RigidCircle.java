@@ -30,6 +30,8 @@ public class RigidCircle extends RigidBody{
 		//body.invInertia = (body.inertia != 0.0f) ? 1.0f / body.inertia : 0.0f;
 	}
 	public void draw(Graphics g){
-		g.drawOval((int)p.getX(),(int)p.getY(),(int)r,(int)r);
+		int r=(int)this.r;
+		int r2=r*2;
+		g.drawOval((int)p.getX()-r,(int)p.getY()-r,r2,r2);
 	}
 }

@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,7 @@ public class Scene {
 		for(int i=0;i<bodies.size();i++){
 			RigidBody a=bodies.get(i);
 			for(int j=i+1;j<bodies.size();j++){
-				RigidBody b=bodies.get(i);
+				RigidBody b=bodies.get(j);
 				if(a.infinityMass() && b.infinityMass()){
 					continue;
 				}
@@ -35,10 +36,14 @@ public class Scene {
 		for(RigidBody b:bodies){
 			b.clearForce();
 		}
+		//Set gravity
+		for(RigidBody b:bodies){
+			b.f=new Vector2D(0,9.8);
+		}
 		//Integrate forces
 		for(RigidBody b:bodies)
 			integrateForces(b);
-		//Init contacs
+		//Init contacts
 		for(Contact c:contacts){
 			c.initialize();
 		}
@@ -50,6 +55,10 @@ public class Scene {
 		//Integrate velocities
 		for(RigidBody b:bodies)
 			integrateVelocity(b);
+		//Correct positions
+		for(Contact c:contacts){
+			c.positionalCorrection();
+		}
 	}
 	public void add(RigidBody b){
 		bodies.add(b);
@@ -82,6 +91,11 @@ public class Scene {
 			b.draw(g);
 		}
 		//Draw contacts
+		int contactSize=2;
+		g.setColor(Color.RED);
+		for(Contact c:contacts)
+			for(Vector2D v:c.contacts)
+				g.drawOval((int)v.x-contactSize/2,(int)v.y-contactSize/2, contactSize, contactSize);
 		//Draw contacts normals
 	}
 }

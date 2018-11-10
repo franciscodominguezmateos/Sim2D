@@ -75,6 +75,21 @@ public class Vector2D {
 	}
 	public double length2(){return x*x+y*y;}
 	public double length() {return Math.sqrt(x*x+y*y);}
+	public Vector2D projectOn(Vector2D v){
+		//Project this vector on v
+		//v should be normalized
+		return v.mul(v.x*x+v.y*y);
+	}
+	public Vector2D projectOnNotNormalized(Vector2D v){
+		//Project this vector on v
+		Vector2D vn=v.normal();
+		return vn.mul(vn.x*x+vn.y*y);
+	}
+	public Vector2D project(Vector2D p){
+		//Project p on this
+		//this sould be normalized
+		return this.mul(p.x*x+p.y*y);
+	}
 	public double getX(){return x;}
 	public double getY(){return y;}
 	public double getX2(){return x*x;}

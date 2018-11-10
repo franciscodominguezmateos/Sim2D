@@ -3,6 +3,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.swing.JFrame;
+import javax.swing.WindowConstants;
 
 public class Sim2DFrame extends JFrame {
 	private Timer t;
@@ -11,6 +12,8 @@ public class Sim2DFrame extends JFrame {
 	public Scene scene;
 
 	public Sim2DFrame(){
+		super();
+		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		t=new Timer();
 		task=new TimerTask(){
 			public void run(){
@@ -40,11 +43,16 @@ public class Sim2DFrame extends JFrame {
 		System.out.println(l.distance(new Vector2D(1,0.5)));
 		Sim2DFrame f=new Sim2DFrame();
 		f.scene=new Scene(0.1,1);
-		RigidCircle c=new RigidCircle(10,10,10);
+		RigidCircle c=new RigidCircle(100,100,5);
 		c.v=new Vector2D(10,20);
 		f.scene.add(c);
 		RigidLine rl=new RigidLine(0,200,320,200);
 		f.scene.add(rl);
+		RigidAABB ab=new RigidAABB();
+		ab.p=new Vector2D(130,100);
+		ab.setWidth(10);
+		ab.setHeight(30);
+		f.scene.add(ab);
 		Sim2DView view=new Sim2DView();
 		view.setScene(f.scene);
 		view.setPreferredSize(new Dimension(320,240));

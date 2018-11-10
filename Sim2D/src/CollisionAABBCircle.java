@@ -1,6 +1,6 @@
-public class CollisionAABBAABB extends Collisions {
+public class CollisionAABBCircle extends Collisions {
 
-	public static final CollisionAABBAABB instance = new CollisionAABBAABB();
+	public static final CollisionAABBCircle instance = new CollisionAABBCircle();
 	public void handleCollision( Contact c, RigidBody a, RigidBody b ){
 		RigidAABB A=(RigidAABB)a;
 		RigidAABB B=(RigidAABB)b;
