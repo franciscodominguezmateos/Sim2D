@@ -1,32 +1,36 @@
 import java.awt.Graphics;
 
 public abstract class RigidBody {
-	protected Vector2D p;   //position
-	protected Vector2D v;   // linear velocity
-	protected Vector2D f; //accumulated force
-	protected double  m; // mass
-	protected double im; //inverse mass
+	public Vector2D p;   //position
+	public Vector2D v;   // linear velocity
+	public Vector2D f; //accumulated force
+	public double  m; // mass
+	public double im; //inverse mass
 
-	//private double   o; // orientation in radians
-	//private double   w; // angular velocity
-	//private double   t; // torque
-	//protected double  I; //moment of inertia
-	//protected double iI; //inverse moment of inertia
+	//public double   o; // orientation in radians
+	//public double   w; // angular velocity
+	//public double   t; // torque
+	//public double  I; //moment of inertia
+	//public double iI; //inverse moment of inertia
 	
-	protected Vector2D COM; // Center of Mass
-	protected double area;  //rigid body area 
+	public Vector2D COM; // Center of Mass
+	public double area;  //rigid body area 
 	
-	private double staticFriction;
-	private double dynamicFriction;
-	private double restitution;
+	public double staticFriction;
+	public double dynamicFriction;
+	public double restitution;
 	
 	//color
-	private double r,g,b;
+	public double r,g,b;
 	
-	public RigidBody(double x,double y){
-		p=new Vector2D( x, y );
+	public int id;
+	
+	public RigidBody(){
+		p=new Vector2D( 0, 0 );
 		v=new Vector2D( 0, 0 );
 		f=new Vector2D( 0, 0 );
+		 m=1;
+		im=1;
 		//o = 0;
 		//w = 0;
 		//t = 0;
@@ -36,14 +40,14 @@ public abstract class RigidBody {
 		restitution = 0.2;
 	}
 	public void applyforce(Vector2D f){
-		this.f.add_mul(f, 1);
+		this.f.addi(f);
 	}
 	public void applyImpulse(Vector2D impulse,Vector2D contactVector){
-		v.add_mul(impulse,im);
+		v.add_muli(impulse,im);
 		//w+=iI*contactVector.cross(impulse);
 	}
 	public void setStatic(){
-		 m=0;
+		 m=Double.MAX_VALUE;
 		im=0;
 		// I=0;
 		//iI=0;

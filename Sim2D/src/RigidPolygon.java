@@ -1,10 +1,14 @@
+import java.awt.Graphics;
 import java.util.List;
 
 public class RigidPolygon extends RigidBody{
-	super();
 	private List<Vector2D> vertices;
 	private List<Vector2D> normals;
 	
+	public RigidPolygon(){
+		super();
+		this.id=1;
+	}
 	public Vector2D getVertex(int i){
 		//int N=vertices.size();
 		//int idx = i % N;
@@ -15,7 +19,7 @@ public class RigidPolygon extends RigidBody{
 		// Calculate COM and I
 		COM=new Vector2D();
 		area=0.0d;
-		I=0.0d;
+		//I=0.0d;
 		final double INV3=1.0d/3.0d;
 		
 		int N=vertices.size();
@@ -34,7 +38,7 @@ public class RigidPolygon extends RigidBody{
 			// I
 			double Ix2=v1.getX2()+v1.getX()*v2.getY()+v2.getX2();
 			double Iy2=v1.getY2()+v1.getY()*v2.getY()+v2.getY2();
-			I+=0.25d*INV3*parallelogramArea*(Ix2+Iy2);
+			//I+=0.25d*INV3*parallelogramArea*(Ix2+Iy2);
 		}
 		
 		COM.mul(1.0d/area);
@@ -45,8 +49,13 @@ public class RigidPolygon extends RigidBody{
 		
 		 m=density*area;
 		im=(m!=0.0d) ? 1.0d/m : 0.0d;
-		 I=I*density;
-		iI=(I!=0.0d) ? 1.0d/I : 0.0d;
+		// I=I*density;
+		//iI=(I!=0.0d) ? 1.0d/I : 0.0d;
+	}
+	@Override
+	public void draw(Graphics g) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

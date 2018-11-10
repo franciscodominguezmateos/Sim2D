@@ -5,7 +5,9 @@ public class RigidCircle extends RigidBody{
 
 	public RigidCircle( double x,double y,double r )
 	{
-		super(x,y);
+		super();
+		this.p.set(x,y);
+		this.id=0;
 		this.r = r;
 	}
 
