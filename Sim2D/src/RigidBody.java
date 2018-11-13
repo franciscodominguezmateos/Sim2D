@@ -37,7 +37,7 @@ public abstract class RigidBody {
 		//p = Random( -PI, PI );
 		staticFriction = 0.5;
 		dynamicFriction = 0.3;
-		restitution = 0.95;
+		restitution = 0.5;
 	}
 	public void applyforce(Vector2D f){
 		this.f.addi(f);

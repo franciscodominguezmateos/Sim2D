@@ -99,7 +99,7 @@ public class Contact {
 		}
 	}
 	public void positionalCorrection(){
-		final double PENETRATION_ALLOWANCE=0.1;
+		final double PENETRATION_ALLOWANCE=2;
 		final double PENETRATION_CORRETION=0.5;
 		double correction = Math.max( penetration - PENETRATION_ALLOWANCE, 0.0f ) / (A.im + B.im) * PENETRATION_CORRETION;
 
