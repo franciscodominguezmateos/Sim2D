@@ -48,11 +48,11 @@ public class Sim2DFrame extends JFrame {
 		f.scene.add(c);
 		RigidLine rl=new RigidLine(0,200,320,200);
 		f.scene.add(rl);
-		RigidAABB ab=new RigidAABB();
-		ab.p=new Vector2D(130,100);
-		ab.setWidth(10);
+		RigidAABB ab=new RigidAABB(130,100);
+		ab.setWidth(50);
 		ab.setHeight(30);
-		//f.scene.add(ab);
+		ab.setStatic();
+		f.scene.add(ab);
 		Sim2DView view=new Sim2DView();
 		view.setScene(f.scene);
 		view.setPreferredSize(new Dimension(320,240));

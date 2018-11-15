@@ -23,11 +23,13 @@ public class Contact {
 	public void solve(){
 		int ia = A.id;
 		int ib = B.id;
-		CollisionCallback ch=Collisions.dispatch[ia][ib];
+		CollisionDetector ch=Collisions.dispatch[ia][ib];
 		if(ch==null){
+			contacts.clear();
 			System.out.print("idx="+ia+","+ib);
 		}
-		ch.handleCollision( this, A, B );
+		else
+			ch.detectCollision( this, A, B );
 	}
 	public void initialize(){
 		e=Math.min(A.restitution, B.restitution);

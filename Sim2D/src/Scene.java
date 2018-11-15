@@ -91,7 +91,7 @@ public class Scene {
 			b.draw(g);
 		}
 		//Draw contacts
-		int contactSize=2;
+		int contactSize=3;
 		g.setColor(Color.RED);
 		for(Contact c:contacts)
 			for(Vector2D v:c.contacts)

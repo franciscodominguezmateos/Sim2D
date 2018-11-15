@@ -43,9 +43,15 @@ public class Sim2DView extends JPanel implements MouseListener,MouseMotionListen
 	}
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		RigidCircle c=new RigidCircle(e.getX(),e.getY(),20);
-		//c.v=new Vector2D(0,10);
-		scene.add(c);		
+		if(e.getButton()==MouseEvent.BUTTON1){
+			RigidCircle c=new RigidCircle(e.getX(),e.getY(),20);
+			//c.v=new Vector2D(0,10);
+			scene.add(c);		
+		}
+		else{
+			RigidAABB c=new RigidAABB(e.getX(),e.getY());
+			scene.add(c);
+		}
 	}
 	@Override
 	public void mouseEntered(MouseEvent e) {

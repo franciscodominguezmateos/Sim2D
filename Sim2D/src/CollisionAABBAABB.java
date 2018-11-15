@@ -1,7 +1,7 @@
-public class CollisionAABBAABB extends Collisions {
+public class CollisionAABBAABB implements CollisionDetector{
 
 	public static final CollisionAABBAABB instance = new CollisionAABBAABB();
-	public void handleCollision( Contact c, RigidBody a, RigidBody b ){
+	public void detectCollision( Contact c, RigidBody a, RigidBody b ){
 		RigidAABB A=(RigidAABB)a;
 		RigidAABB B=(RigidAABB)b;
 		Vector2D dp=B.p.sub(A.p);
@@ -30,7 +30,7 @@ public class CollisionAABBAABB extends Collisions {
 					}
 					else{
 						c.normal=new Vector2D(0, 1);
-						Vector2D contactPoint=new Vector2D(A.p.x-A.w2,A.p.y+h2);
+						Vector2D contactPoint=new Vector2D(A.p.x-A.w2,A.p.y+A.h2);
 						c.contacts.add(contactPoint);
 					}
 					c.penetration=yOverlap;

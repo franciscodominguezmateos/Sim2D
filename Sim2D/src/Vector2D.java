@@ -90,6 +90,9 @@ public class Vector2D {
 		//this sould be normalized
 		return this.mul(p.x*x+p.y*y);
 	}
+	public boolean equals(Vector2D v){
+		return x==v.x && y==v.y;
+	}
 	public double getX(){return x;}
 	public double getY(){return y;}
 	public double getX2(){return x*x;}

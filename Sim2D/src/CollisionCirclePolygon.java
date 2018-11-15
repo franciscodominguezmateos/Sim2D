@@ -1,10 +1,10 @@
-public class CollisionCirclePolygon implements CollisionCallback
+public class CollisionCirclePolygon implements CollisionDetector
 {
 
 	public static final CollisionCirclePolygon instance = new CollisionCirclePolygon();
 
 	@Override
-	public void handleCollision( Contact c, RigidBody a, RigidBody b )
+	public void detectCollision( Contact c, RigidBody a, RigidBody b )
 	{
 		RigidCircle  A = (RigidCircle) a;
 		RigidPolygon B = (RigidPolygon)b;

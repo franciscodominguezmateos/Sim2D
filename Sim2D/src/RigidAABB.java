@@ -6,10 +6,12 @@ public class RigidAABB extends RigidBody {
 	public double h ;//height
 	public double h2;//height/2
 	
-	public RigidAABB(){
+	public RigidAABB(double x,double y){
 		super();
+		this.p.set(x,y);
 		this.id=2;
-		this.im=0;
+		setWidth(10);
+		setHeight(10);
 	}
 	public void setWidth(double d){
 		w=d;

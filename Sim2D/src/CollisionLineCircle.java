@@ -1,11 +1,11 @@
 
-public class CollisionLineCircle implements CollisionCallback {
+public class CollisionLineCircle implements CollisionDetector {
 	public static final CollisionLineCircle instance = new CollisionLineCircle();
 
 	@Override
-	public void handleCollision(Contact c, RigidBody a, RigidBody b) {
+	public void detectCollision(Contact c, RigidBody a, RigidBody b) {
 		c.A=b;
 		c.B=a;
-		CollisionCircleLine.instance.handleCollision(c, b, a);
+		CollisionCircleLine.instance.detectCollision(c, b, a);
 	}
 }
