@@ -9,29 +9,24 @@ public class CollisionCirclePolygon implements CollisionDetector
 		RigidCircle  A = (RigidCircle) a;
 		RigidPolygon B = (RigidPolygon)b;
 
-		c.contactCount = 0;
-
+		c.contacts.clear();
+		
 		// Transform circle center to Polygon model space
 		// Vec2 center = a->position;
 		// center = B->u.Transpose( ) * (center - b->position);
-		Vector2D center = B.u.transpose().muli( a.position.sub( b.position ) );
+		Vector2D center = A.p.sub(B.p);
 
 		// Find edge with minimum penetration
 		// Exact concept as using support points in Polygon vs Polygon
 		double separation = -Double.MAX_VALUE;
 		int idxFaceNormal = 0;
-		for (int i = 0; i < B.vertexCount; ++i)
-		{
+		for (int i = 0; i < B.localVertices.size(); ++i){
 			// real s = Dot( B->m_normals[i], center - B->m_vertices[i] );
-			float s = Vector2D.dot( B.normals[i], center.sub( B.vertices[i] ) );
-
-			if (s > A.r)
-			{
+			double s =  B.localNormals.get(i).dot( center.sub( B.localVertices.get(i) ) );
+			if (s > A.r){
 				return;
 			}
-
-			if (s > separation)
-			{
+			if (s > separation)	{
 				separation = s;
 				idxFaceNormal = i;
 			}

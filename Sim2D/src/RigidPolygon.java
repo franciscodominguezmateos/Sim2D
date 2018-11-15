@@ -2,18 +2,38 @@ import java.awt.Graphics;
 import java.util.List;
 
 public class RigidPolygon extends RigidBody{
-	private List<Vector2D> vertices;
-	private List<Vector2D> normals;
+	public List<Vector2D> localVertices;
+	public List<Vector2D> localNormals;
 	
 	public RigidPolygon(){
 		super();
 		this.id=1;
 	}
-	public Vector2D getVertex(int i){
+	public Vector2D getLocalVertex(int i){
 		//int N=vertices.size();
 		//int idx = i % N;
 		//return vertices.get(idx);
-		return vertices.get(i%vertices.size());
+		return localVertices.get(i%localVertices.size());
+	}
+	public Vector2D getGlobalVertex(int i){
+		Vector2D lv=getLocalVertex(i);
+		return this.p.add(lv);
+	}
+	public void worOutLocalNormals(){
+		int N=localVertices.size();
+		if(N>1){//Must be unless two vertices
+			localNormals.clear();
+			for(int i=0;i<N-1;i++){
+				Vector2D vn=localVertices.get(i+1).sub(localVertices.get(i)).leftNormal();
+				localNormals.add(vn);
+			}
+			Vector2D vn=localVertices.get(0).sub(localVertices.get(N)).leftNormal();
+			localNormals.add(vn);		
+		}
+	}
+	public void addVertex(Vector2D v){
+		localVertices.add(v);
+		this.worOutLocalNormals();
 	}
 	public void computeMassCOM(double density){
 		// Calculate COM and I
@@ -51,6 +71,21 @@ public class RigidPolygon extends RigidBody{
 		im=(m!=0.0d) ? 1.0d/m : 0.0d;
 		// I=I*density;
 		//iI=(I!=0.0d) ? 1.0d/I : 0.0d;
+	}
+	Vector2D getSuportPoint(Vector2D dir){
+		  double bestProjection = Double.MIN_VALUE;
+		  Vector2D bestVertex=null;
+		  
+		  for(Vector2D v: this.vertices){
+		    double projection = v.dot(dir);
+		 
+		    if(projection > bestProjection)
+		    {
+		      bestVertex = v;
+		      bestProjection = projection;
+		    }
+		  }
+		  return bestVertex;
 	}
 	@Override
 	public void draw(Graphics g) {

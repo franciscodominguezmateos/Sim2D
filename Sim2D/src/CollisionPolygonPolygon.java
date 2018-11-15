@@ -4,12 +4,40 @@ public class CollisionPolygonPolygon implements CollisionDetector
 
 	public static final CollisionPolygonPolygon instance = new CollisionPolygonPolygon();
 
-	@Override
-	public void handleCollision( Manifold m, Body a, Body b )
+
+	int findAxisLeastPenetration(RigidPolygon A, RigidPolygon B )
 	{
-		Polygon A = (Polygon)a.shape;
-		Polygon B = (Polygon)b.shape;
-		m.contactCount = 0;
+	  double bestDistance = Double.MIN_VALUE;
+	  int bestIndex;
+	 
+	  for(Vector2D n:A.normals) {
+	 
+	    // Retrieve support point from B along -n
+	    Vector2D s = B.getSuportPoint( n.neg() );
+	 
+	    // Retrieve vertex on face from A, transform into
+	    // B's model space
+	    Vector2D v = A->m_vertices[i];
+	 
+	    // Compute penetration distance (in B's model space)
+	    real d = Dot( n, s - v );
+	 
+	    // Store greatest distance
+	    if(d > bestDistance)
+	    {
+	      bestDistance = d;
+	      bestIndex = i;
+	    }
+	  }
+	  return bestIndex;
+	}
+	@Override
+	public void detectCollision( Contact c, RigidBody a, RigidBody b )
+	{
+		RigidPolygon A = (RigidPolygon)a;
+		RigidPolygon B = (RigidPolygon)b;
+		
+		c.contacts.clear();
 
 		// Check for a separating axis with A's face planes
 		int[] faceA = { 0 };

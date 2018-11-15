@@ -26,15 +26,18 @@ public abstract class RigidBody {
 	public int id;
 	
 	public RigidBody(){
+		// Linear parameters
 		p=new Vector2D( 0, 0 );
 		v=new Vector2D( 0, 0 );
 		f=new Vector2D( 0, 10 );
 		 m=1;
 		im=1;
+		// Angular parameters
 		//o = 0;
 		//w = 0;
 		//t = 0;
 		//p = Random( -PI, PI );
+		
 		staticFriction = 0.5;
 		dynamicFriction = 0.3;
 		restitution = 0.5;
