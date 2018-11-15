@@ -26,7 +26,7 @@ public class Contact {
 		CollisionDetector ch=Collisions.dispatch[ia][ib];
 		if(ch==null){
 			contacts.clear();
-			System.out.print("idx="+ia+","+ib);
+			//System.out.print("idx="+ia+","+ib);
 		}
 		else
 			ch.detectCollision( this, A, B );

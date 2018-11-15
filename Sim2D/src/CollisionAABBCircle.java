@@ -45,8 +45,6 @@ public class CollisionAABBCircle implements CollisionDetector {
 		d=Math.sqrt(d);
 		//Normalize normal
 		c.normal.divi(d);
-		double l=c.normal.length();
-		System.out.println(l);
 		// Collision normal need to be flipped to point outside
 		// if circle was inside the AABB
 		if(inside)

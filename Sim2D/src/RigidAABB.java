@@ -26,6 +26,21 @@ public class RigidAABB extends RigidBody {
 	public double maxY(){return p.y+w2;}
 	public double minY(){return p.y-w2;}
 	
+	public Vector2D getVertex(int i){
+		switch(i){
+		case 0:
+			//up right
+			return new Vector2D(p.x+w2,p.y-h2);
+		case 1:
+			//down right
+			return new Vector2D(p.x+w2,p.y+h2);
+		case 2:
+			//down left
+			return new Vector2D(p.x-w2,p.y+h2);
+		}
+		//up left
+		return new Vector2D(p.x-w2,p.y-h2);
+	}
 
 	@Override
 	public void draw(Graphics g) {
